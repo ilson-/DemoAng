@@ -1,0 +1,121 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Пример</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Подключение CSS -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+
+
+    <script language="javascript"  src="lib/angular.min.js"></script>
+    
+    <script language="javascript">
+        /* Имя приложения для работы с REST, глобальная переменная */
+        var DemoSettings = {appName: '#($GET(^Settings("Demo", "WebAppNameUser")))#'};
+		
+		// Создание контроллера FirstCtrl
+        function FirstCtrl($scope){
+            $scope.obj = {
+                name: 'Иван', 
+                age: 31, 
+                subjects: ['Физика', 'Химия', 'История', 'Геометрия']
+            };
+
+            $scope.msg = 'Простой текст';
+
+            $scope.btnSubmitName = 'Ок';
+
+            $scope.submit = function(){
+                alert('Submit form!');
+            };
+        };
+
+        // Создание контроллера SecondCtrl
+        var SecondCtrl = function($scope, $http){
+            $scope.students = [];
+            
+            // Загрузить студентов из БД в массив
+            $scope.loadStudents = function(){
+                alert(DemoSettings.appName + '/json/student');
+                $http({method: 'GET', url: DemoSettings.appName + '/json/student'})
+                    .success(function(data, status, headers, config){
+                        $scope.students = data;
+                    })
+                    .error(function(data, status, headers, config){
+                        alert(data);
+                    });
+            };
+            
+            $scope.removeStudent = function(idx){
+				$scope.students.splice(idx, 1);
+			}; 
+		};
+
+        // Создание контроллера ThirdCtrl
+        var ThirdCtrl = function($scope){
+            $scope.msg = 'Текст области контроллера ThirdCtrl';
+        };
+
+    </script>
+  </head>
+  <!-- Инициализация приложения -->
+  <body ng-app="">
+  
+    <!-- Левый блок -->
+	<div class="span6" ng-controller="FirstCtrl" ng-style="divStyle" ng-init="divStyle={backgroundColor: 'rgb(230,255,255)'}">
+        <b>FirstCtrl</b>
+        <form name="firstForm" ng-submit="submit()">
+            <pre>divStyle = {{divStyle|json}}</pre>
+            <input type="text" ng-model="divStyle.backgroundColor"/>
+            
+            <br><br>
+            
+            <pre>obj = {{obj}}</pre>
+            <input type="text" ng-model="obj.name" ng-required="true"/>
+            
+            <br><br>
+            
+            <pre>msg = {{this.msg}}</pre>
+            <input type="text" ng-model="msg" required/>
+            
+            <br><br>
+            
+            <pre>
+            Состояние формы:
+            firstForm.$invalid = {{firstForm.$invalid}}
+            firstForm.$valid = {{firstForm.$valid}}
+            firstForm.$pristine = {{firstForm.$pristine}}
+            firstForm.$dirty = {{firstForm.$dirty}}
+            </pre>
+            <button type="submit" class="btn" ng-bind="btnSubmitName" ng-disabled="firstForm.$pristine || firstForm.$invalid"></button>
+        </form>
+    </div>
+
+    
+    <!-- Правый блок -->
+    <div class="span6" ng-controller="SecondCtrl">
+        <b>SecondCtrl</b>
+        <br>
+        <button type="button" class="btn" ng-click="loadStudents()">Загрузить студентов</button>
+        <br>
+        
+        <p ng-repeat="st in students|limitTo:10">
+            <span ng-bind="($index + 1) + '. ' + st.lname + ' ' + st.fname"></span>
+            <button type="button" class="close" ng-click="removeStudent($index)">&times;</button>
+        <p>
+        
+        <br>
+
+        <div ng-controller="ThirdCtrl">
+            <b>ThirdCtrl</b>
+            <pre>msg = {{msg}}</pre>
+            <pre>$parent.students.length = {{$parent.students.length}}</pre>
+            <pre>$parent.students[0] = {{$parent.students[0]}}</pre>
+        </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.1.1 (Build 107U)" ts="2016-07-12 03:28:04">
+<Class name="Demo.Data.Faculty">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeChanged>64111,5997.088103</TimeChanged>
+<TimeCreated>63161,6399.472227</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Groups">
+<Type>Demo.Data.Group</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Faculty</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Demo.Data.FacultyD</DataLocation>
+<DefaultData>FacultyDefaultData</DefaultData>
+<IdLocation>^Demo.Data.FacultyD</IdLocation>
+<IndexLocation>^Demo.Data.FacultyI</IndexLocation>
+<StreamLocation>^Demo.Data.FacultyS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="FacultyDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Demo.Data.Group">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeChanged>64111,5997.221636</TimeChanged>
+<TimeCreated>63153,19759.74412</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Students">
+<Type>Demo.Data.Student</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Group</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="Faculty">
+<Type>Demo.Data.Faculty</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Groups</Inverse>
+<Relationship>1</Relationship>
+<Required>1</Required>
+<Parameter name="XMLPROJECTION" value="XELEMENT"/>
+<Parameter name="XMLREFERENCE" value="ID"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Demo.Data.GroupD</DataLocation>
+<DefaultData>GroupDefaultData</DefaultData>
+<IdLocation>^Demo.Data.GroupD</IdLocation>
+<IndexLocation>^Demo.Data.GroupI</IndexLocation>
+<StreamLocation>^Demo.Data.GroupS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="GroupDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Faculty</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Demo.Data.Student">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeChanged>64111,5997.339713</TimeChanged>
+<TimeCreated>63156,62328.949389</TimeCreated>
+
+<Parameter name="XMLNAME">
+<Default>student</Default>
+</Parameter>
+
+<Property name="LastName">
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="XMLNAME" value="lastName"/>
+</Property>
+
+<Property name="FirstName">
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="XMLNAME" value="firstName"/>
+</Property>
+
+<Property name="Email">
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="XMLNAME" value="email"/>
+</Property>
+
+<Property name="Address">
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="XMLNAME" value="address"/>
+</Property>
+
+<Property name="Group">
+<Type>Demo.Data.Group</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Students</Inverse>
+<Relationship>1</Relationship>
+<Required>1</Required>
+<Parameter name="XMLNAME" value="group"/>
+<Parameter name="XMLPROJECTION" value="XELEMENT"/>
+<Parameter name="XMLREFERENCE" value="ID"/>
+</Property>
+
+<Index name="GroupIdx">
+<Properties>Group</Properties>
+</Index>
+
+<Index name="EmailIdx">
+<Properties>Email</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Demo.Data.StudentD</DataLocation>
+<DefaultData>StudentDefaultData</DefaultData>
+<IdLocation>^Demo.Data.StudentD</IdLocation>
+<IndexLocation>^Demo.Data.StudentI</IndexLocation>
+<StreamLocation>^Demo.Data.StudentS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="StudentDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>LastName</Value>
+</Value>
+<Value name="3">
+<Value>FirstName</Value>
+</Value>
+<Value name="4">
+<Value>Number</Value>
+</Value>
+<Value name="5">
+<Value>Address</Value>
+</Value>
+<Value name="6">
+<Value>Email</Value>
+</Value>
+<Value name="7">
+<Value>Group</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Demo.Data.Utils">
+<TimeChanged>63375,49008.627754</TimeChanged>
+<TimeCreated>63161,6791.786949</TimeCreated>
+
+<Method name="Init">
+<Description>
+do ##class(Demo.Data.Utils).Init()</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	do ##class(Demo.Data.Faculty).%KillExtent()
+	do ##class(Demo.Data.Group).%KillExtent()
+	do ##class(Demo.Data.Student).%KillExtent()
+	
+	do ##class(Demo.Data.Utils).ImportXData("Demo.Data.Utils", "Demo.Data.Faculty", "FacultyXData")
+	do ##class(Demo.Data.Utils).ImportXData("Demo.Data.Utils", "Demo.Data.Group", "GroupXData")
+	do ##class(Demo.Data.Utils).ImportXData("Demo.Data.Utils", "Demo.Data.Student", "StudentXData")
+]]></Implementation>
+</Method>
+
+<Method name="ImportXData">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>locationXData:%String,className:%String,xDataName:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	#dim sc As %Status = $$$OK
+
+	if $$$ISERR(sc)
+	{
+		write !, $System.Status.DisplayError(sc)
+		quit sc
+	}
+
+	#dim stream As %Stream.Object = ##class(%Dictionary.CompiledXData).%OpenId(locationXData_"||"_xDataName).Data
+	#dim reader As %XML.Reader = ##class(%XML.Reader).%New()
+
+	set sc = reader.OpenStream(stream, "literal")
+	if $$$ISERR(sc) {
+		write !, $System.Status.DisplayError(sc)
+		quit sc
+	}
+
+	do reader.Correlate($piece(className, ".", *), className)
+
+	set itemsCount = 0
+
+	while reader.Next(.obj, .sc)
+	{
+		if $$$ISERR(sc)
+		{
+			write !, $System.Status.DisplayError(sc)
+			quit
+		}
+		
+		set sc = obj.%Save()
+		
+		if $$$ISERR(sc)
+		{
+			write !, $System.Status.DisplayError(sc)
+			quit 
+		}
+		
+		set obj = ""
+		set itemsCount = itemsCount + 1
+	}
+	
+	write !,"Импортировано "_itemsCount_" объектов класса "_className
+]]></Implementation>
+</Method>
+
+<XData name="FacultyXData">
+<Data><![CDATA[
+<FacultyXData>
+		<Faculty><Name>Информатики и Процессов Управления</Name></Faculty>
+		<Faculty><Name>Информатики и Вычислительной Техники</Name></Faculty>
+	</FacultyXData>
+]]></Data>
+</XData>
+
+<XData name="GroupXData">
+<Data><![CDATA[
+<GroupXData>
+		<Group><Faculty>1</Faculty><Name>ИП-А06</Name></Group>
+		<Group><Faculty>1</Faculty><Name>ИП-И07</Name></Group>
+		<Group><Faculty>1</Faculty><Name>ИП-Р08</Name></Group>
+		<Group><Faculty>2</Faculty><Name>ВТ-У11</Name></Group>
+		<Group><Faculty>2</Faculty><Name>ВТ-А10</Name></Group>
+	</GroupXData>
+]]></Data>
+</XData>
+
+<XData name="StudentXData">
+<Data><![CDATA[
+<StudentXData>
+	<Student><group>1</group><lastName>Иванов</lastName><firstName>Андрей</firstName><email>one@mail.ru</email><address>Москва</address></Student>
+	<Student><group>1</group><lastName>Морозов</lastName><firstName>Петр</firstName><email>two@mail.ru</email><address>Красноярск</address></Student>
+	<Student><group>1</group><lastName>Юдин</lastName><firstName>Павел</firstName><email>three@mail.ru</email><address>Саратов</address></Student>
+	
+	<Student><group>2</group><lastName>Удалов</lastName><firstName>Константин</firstName><email>four@mail.ru</email><address>Новосибирск</address></Student>
+	<Student><group>2</group><lastName>Павлов</lastName><firstName>Алексей</firstName><email>five@mail.ru</email><address>Абакан</address></Student>
+	
+	<Student><group>3</group><lastName>Зубова</lastName><firstName>Юлия</firstName><email>six@mail.ru</email><address>Владивосток</address></Student>
+	<Student><group>3</group><lastName>Андреева</lastName><firstName>Татьяна</firstName><email>seven@mail.ru</email><address>Киев</address></Student>
+	<Student><group>3</group><lastName>Шампуров</lastName><firstName>Николай</firstName><email>eight@mail.ru</email><address>Самара</address></Student>
+	
+	<Student><group>4</group><lastName>Алексеев</lastName><firstName>Юрий</firstName><email>nine@mail.ru</email><address>Норильск</address></Student>
+	<Student><group>4</group><lastName>Галкин</lastName><firstName>Сергей</firstName><email>ten@mail.ru</email><address>Омск</address></Student>
+	<Student><group>4</group><lastName>Пугаев</lastName><firstName>Артем</firstName><email>eleven@mail.ru</email><address>Уфа</address></Student>
+	<Student><group>4</group><lastName>Васильев</lastName><firstName>Николай</firstName><email>zero@mail.ru</email><address>Краснодар</address></Student>
+	
+	<Student><group>5</group><lastName>Русин</lastName><firstName>Максим</firstName><email>rusin@mail.ru</email><address>Омск</address></Student>
+	<Student><group>5</group><lastName>Долгих</lastName><firstName>Виктор</firstName><email>dolg@mail.ru</email><address>Абан</address></Student>
+	<Student><group>5</group><lastName>Бузук</lastName><firstName>Алексей</firstName><email>buzuk@mail.ru</email><address>Мурманск</address></Student>
+	</StudentXData>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="Demo.Web.BaseJsonHandler">
+<Abstract>1</Abstract>
+<TimeChanged>64111,11426.584774</TimeChanged>
+<TimeCreated>64111,8079.577214</TimeCreated>
+
+<Method name="CheckDynamicObject">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>obj</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set st = $$$OK
+    
+    if $ISOBJECT(obj){
+        if $CLASSNAME(obj) '= "%Library.Object" {
+            set st = ..GetErrorStatus("Переданный динамический объект не является динамическим :(. Это объект класса "_$CLASSNAME(obj)_".")
+        }
+    }
+    else{
+        set st = ..GetErrorStatus("Переданный динамический объект не является объектом.")
+    } 
+    
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="CheckPersistentObject">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>obj</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set st = $$$OK
+    
+    if $ISOBJECT(obj){
+        if $CLASSMETHOD($CLASSNAME(obj), "%IsA", "%Persistent") = $$$NO{
+            set st = ..GetErrorStatus("Переданный хранимый объект не является хранимым :(. Это объект класса "_$CLASSNAME(obj)_".")
+        }
+    }
+    else{
+        set st = ..GetErrorStatus("Переданный хранимый объект не является объектом.")
+    } 
+    
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="GetErrorStatus">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>msg:%String</FormalSpec>
+<Private>1</Private>
+<Implementation><![CDATA[    quit $$$ERROR(5001, msg)
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="Demo.Web.StudentJsonHandler">
+<Description>
+Обработчик JSON класса со студентиками</Description>
+<Abstract>1</Abstract>
+<Super>Demo.Web.BaseJsonHandler</Super>
+<TimeChanged>64111,11870.696289</TimeChanged>
+<TimeCreated>64111,8343.637639</TimeCreated>
+
+<Method name="WriteArray">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set st = $$$OK
+    
+    try{
+        set array = []
+        
+        &sql(DECLARE StCur CURSOR FOR 
+             SELECT ID
+             FROM Demo_Data.Student)    
+        
+        &sql(OPEN StCur)
+        for  
+        {   
+            &sql(FETCH StCur INTO :id) 
+            quit:(SQLCODE '= 0)
+            
+            set classObj = ##class(Demo.Data.Student).%OpenId(id)
+            set dynamicObj = ..GetDynamicByPersistent(classObj, .st)
+            quit:$$$ISERR(st) 
+            
+            do array.$push(dynamicObj)
+        }
+        
+        &sql(CLOSE StCur)
+        
+        w array.$toJSON()
+    }
+    catch (ex){
+        set st = ex.AsStatus()
+    }
+    
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="Save">
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[dynamicObj:%Object,&st:%Status]]></FormalSpec>
+<ReturnType>Demo.Data.Student</ReturnType>
+<Implementation><![CDATA[
+    set st = $$$OK
+    
+    try{
+        $$$THROWONERROR(st, ..CheckDynamicObject(dynamicObj))
+        
+        set classObject = ""
+        
+        if (dynamicObj.id = ""){
+            set classObject = ##class(Demo.Data.Student).%New()
+        }
+        else{
+            set classObject = ##class(Demo.Data.Student).%OpenId(dynamicObj.id, ,.st)
+            if $$$ISERR(st) $$$ThrowStatus(st)       
+        }
+        
+        $$$THROWONERROR(st, ..DynamicToPersistent(dynamicObj, .newClassObject))
+        set st = classObject.%Save()
+    }
+    catch(ex){
+        set st = ex.AsStatus
+    }
+    
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="DynamicToPersistent">
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[dynamicObj:%Object,&persistentObj:%Persistent]]></FormalSpec>
+<Private>1</Private>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set st = $$$OK
+    
+    try{
+        $$$THROWONERROR(st, ..CheckPersistentObject(persistentObj))
+        
+        #dim classObj As Demo.Data.Student = persistentObj
+        set classObj.LastName = dynamicObj.lastName
+        set classObj.FirstName = dynamicObj.firstName
+        set classObj.Email = dynamicObj.email
+        set classObj.Address = dynamicObj.address
+        
+        $$$THROWONERROR(st, ..CheckDynamicObject(dynamicObj.group))
+        set classObj.Group = ##class(Demo.Data.Group).%OpenId(dynamicObj.group.id,,.st)
+        if $$$ISERR(st) $$$ThrowStatus(st)         
+    }
+    catch(ex){
+        set st = ex.AsStatus()
+    }
+    
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="GetDynamicByPersistent">
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[persistentObj:%Persistent,&st:%Status]]></FormalSpec>
+<ReturnType>%Object</ReturnType>
+<Implementation><![CDATA[
+    set st = $$$OK
+    set dynamicObj = {}
+    
+    try{
+        $$$THROWONERROR(st, ..CheckPersistentObject(persistentObj))
+        
+        #dim classObj As Demo.Data.Student = persistentObj
+        set dynamicObj.id = classObj.%Id()
+        set dynamicObj.lastName = classObj.LastName
+        set dynamicObj.firstName = classObj.FirstName
+        set dynamicObj.email = classObj.Email
+        set dynamicObj.address = classObj.Address
+    }
+    catch(ex){
+        set st = ex.AsStatus()
+        set dynamicObj = ""
+    }
+    
+    quit dynamicObj
+]]></Implementation>
+</Method>
+</Class>
+
+
+</Export>

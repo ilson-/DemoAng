@@ -1,0 +1,14 @@
+
+<div class="row-fluid">
+	<p>Примеры для GET:</p>
+	<br>
+	<p><a href="" onclick="window.open(DemoSetting.appName + '/json/student', '_blank')"        >/json/student</a> - все студенты<p>
+	<p><a href="" onclick="window.open(DemoSetting.appName + '/xml/student', '_blank')"         >/xml/student</a> - все студенты (xml)<p>
+	<p><a href="" onclick="window.open(DemoSetting.appName + '/json/student/1', '_blank')"      >/json/student/1</a> - студент с ИД=1<p>
+	<p><a href="" onclick="window.open(DemoSetting.appName + '/xml/student/1', '_blank')"       >/xml/student/1</a> - студент с ИД=1 (xml)<p>
+	<p><a href="" onclick="window.open(DemoSetting.appName + '/json/faculty', '_blank')"        >/json/faculty</a> - все факультеты<p>
+	<p><a href="" onclick="window.open(DemoSetting.appName + '/json/faculty/1/group', '_blank')">/json/faculty/1/group</a> - все группы факультета с ИД=1<p>
+	<p><a href="" onclick="window.open(DemoSetting.appName + '/json/group/1', '_blank')"        >/json/group/1</a> - группа с ИД=1<p>
+	<p><a href="" onclick="window.open(DemoSetting.appName + '/json/group/1/student', '_blank')">/json/group/1/student</a> - все студенты группы с ИД=1<p>
+	<p><a href="" onclick="window.open(DemoSetting.appName + '/json/testproxy', '_blank')"      >/json/testproxy</a> - тест<p>
+</div>
