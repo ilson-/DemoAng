@@ -33,6 +33,7 @@ controllersModule.controller('AllStudentsCtrl', function($scope, $location, Stud
 
    // Загрузить всех студентов
    $scope.loadStudents = function(){
+    
         StudentSrvc.getAll().then(
             function(data){
                 $scope.grid.items = data;
@@ -54,15 +55,18 @@ controllersModule.controller('AllStudentsCtrl', function($scope, $location, Stud
 
    // Удалить студента по ИД
    $scope.removeStudent = function(student){
+       
         StudentSrvc.remove(student.id).then(
             function(data){
               	$scope.alert = {title: 'Готово!', msg: 'Студент удален.', cssClass: 'alert alert-success', visible: true, closeTimeout: 1500};
             	  $scope.loadStudents();
             	  $scope.grid.selected = null;
+                
             },
             function(data, status, headers, config){
                 $scope.alert = {title: 'Внимание!', msg: data, cssClass: 'alert alert-error', visible: true};  
             });
+
    };
 
    $scope.init(); 

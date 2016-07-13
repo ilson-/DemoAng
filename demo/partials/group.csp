@@ -1,0 +1,45 @@
+<div class="row-fluid">
+	<div class="span4">
+	</div>
+	<div class="span4">
+		<div class="accordion">
+			<div class="accordion-group">
+				<div class="accordion-heading">
+					<a class="accordion-toggle" ng-bind="formCaption"></a>
+				</div>
+				<div class="accordion-body">
+					<div class="accordion-inner">
+						{{group|json}}
+						<form name="pageForm" ng-submit="submit()" style="margin: 0 0 10px 0;" >
+							<div class="control-group">
+						        <label class="control-label">Название*</label>
+						        <div class="controls">
+						            <input class="span12" type="text" ng-model="group.name" required></input>
+						        </div>
+						    </div>
+							<div class="control-group">
+						    	<label class="control-label">Факультет*</label>
+						        <div class="controls">
+						        	<!-- Заполнение комбобокса данными из массива с факультетами -->
+					            	<!--
+					            	<select class="span12" ng-model="group.faculty.id" ng-options="faculty.id as faculty.name for faculty in faculties" ng-change="loadFacultyGroups(student.group.faculty.id)" required>
+					            		<option value=""></option>
+					            	</select>-->
+						        </div>
+						    </div>
+						    <div class="control-group">
+					        	<div class="controls">
+						    		<button type="submit" class="btn btn-success btn-small" ng-bind="formBtnSubmitName" ng-disabled="pageForm.$pristine"></button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div class="span4">
+	</div>
+</div>
+<!-- Инфо-сообщения -->
+<dmalert data="alert" span-right="4" span-middle="4" span-left="4"/>

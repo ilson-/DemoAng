@@ -39,9 +39,10 @@
             
             // Загрузить студентов из БД в массив
             $scope.loadStudents = function(){
-                alert(DemoSettings.appName + '/json/student');
+                
                 $http({method: 'GET', url: DemoSettings.appName + '/json/student'})
                     .success(function(data, status, headers, config){
+                        console.log(data);
                         $scope.students = data;
                     })
                     .error(function(data, status, headers, config){
@@ -69,15 +70,16 @@
         <b>FirstCtrl</b>
         <form name="firstForm" ng-submit="submit()">
             <pre>divStyle = {{divStyle|json}}</pre>
+            {{21312312.321|number}}
             <input type="text" ng-model="divStyle.backgroundColor"/>
             
             <br><br>
-            
+            {{34234 + 32434 + 'Hello'}}
             <pre>obj = {{obj}}</pre>
             <input type="text" ng-model="obj.name" ng-required="true"/>
             
             <br><br>
-            
+            <label ng-bind="obj.name"></label>
             <pre>msg = {{this.msg}}</pre>
             <input type="text" ng-model="msg" required/>
             
@@ -102,7 +104,7 @@
         <button type="button" class="btn" ng-click="loadStudents()">Загрузить студентов</button>
         <br>
         
-        <p ng-repeat="st in students|limitTo:10">
+        <p ng-repeat="st in students|limitTo:10|orderBy:'lname'">
             <span ng-bind="($index + 1) + '. ' + st.lname + ' ' + st.fname"></span>
             <button type="button" class="close" ng-click="removeStudent($index)">&times;</button>
         <p>

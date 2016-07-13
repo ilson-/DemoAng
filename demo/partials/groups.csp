@@ -1,0 +1,13 @@
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		<!-- Свой компонент - таблица -->
+		<dmgrid data="grid"/>
+	</div>
+	<div class="span1">
+	</div>
+</div>
+<br>
+<!-- Инфо-сообщения -->
+<dmalert data="alert" span-right="1" span-middle="10" span-left="1"/>

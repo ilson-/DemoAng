@@ -28,6 +28,7 @@
               <div class="nav-responsive-collapse">
                 <ul class="nav">
                   <li><a href="#/students">Студенты</a></li>
+                  <li><a href="#/groups">Группы</a></li>
                   <li><a href="#/api">API</a></li>
                 </ul>
               </div>
@@ -54,9 +55,12 @@
     <script language="javascript"  src="js/controllers/StudentCtrl.js"></script>
     
 
+    <script language="javascript"  src="js/controllers/AllGroupsCtrl.js"></script>
+    <script language="javascript"  src="js/controllers/GroupCtrl.js"></script>
 
     <script language="javascript"  src="js/services/RESTSrvc.js"></script>
     <script language="javascript"  src="js/services/StudentSrvc.js"></script>
+    <script language="javascript"  src="js/services/GroupsSrvc.js"></script>
     
     <script language="javascript"  src="js/directives/dmgrid.js"></script>
     <script language="javascript"  src="js/directives/dmalert.js"></script>

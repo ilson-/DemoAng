@@ -5,9 +5,9 @@
 Доступ к БД через REST
 ===========================================================================================*/
 
-servicesModule.factory('RESTSrvc', function($http, $q) {	
-	return {
-		getPromise: function(config){
+servicesModule.factory('RESTSrvc', function($http, $q) {    
+    return {
+        getPromise: function(config){
             var deferred = $q.defer();
 
             $http(config).
@@ -15,18 +15,15 @@ servicesModule.factory('RESTSrvc', function($http, $q) {
                     deferred.resolve(data.children ? data.children : data);
                 }).
                 error(function(data, status, headers, config){
-                    if (response.data == ""){
-						response.data = "Error status: " + response.status + ". Method: " + response.config.method + ". Url: " + response.config.url + "."; 
-					}
-					else if (response.data != undefined && response.data.summary != undefined){
-						response.data = response.data.summary;
-					}
-					
-					deferred.reject(response);
+                    if (data && data.summary){
+                        data = data.summary;
+                    }
+                    
+                    deferred.reject(data);
                 });
 
             return deferred.promise;
-    	}
+        }
     }
 });
   

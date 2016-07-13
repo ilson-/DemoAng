@@ -5,7 +5,7 @@
 Студент. Изменение/Добавление
 ===========================================================================================*/
 
-controllersModule.controller('StudentCtrl', function($scope, $routeParams, StudentSrvc, /*FacultySrvc*/){
+controllersModule.controller('StudentCtrl', function($scope, $routeParams, StudentSrvc/*, FacultySrvc*/){
 
    // Инициализация данных
    $scope.init = function(){
@@ -21,7 +21,7 @@ controllersModule.controller('StudentCtrl', function($scope, $routeParams, Stude
           // Добавление студента в определённую группу
           if ($routeParams.grId && $routeParams.fcId){
               $scope.student = {group: {id: parseInt($routeParams.grId), faculty: {id: parseInt($routeParams.fcId)}}};            
-          	  $scope.loadFacultyGroups($routeParams.fcId);
+              $scope.loadFacultyGroups($routeParams.fcId);
           }
       }
       
@@ -31,15 +31,16 @@ controllersModule.controller('StudentCtrl', function($scope, $routeParams, Stude
 
    // Загрузить студента по ИД
    $scope.loadStudent = function(id){
+      /*
       StudentSrvc.get(id).then(
           function(data){
               $scope.student = data;
               // Загрузить группы факультета по ид факультета, на котором учится студент
-      		    $scope.loadFacultyGroups(data.group.faculty.id);
+                $scope.loadFacultyGroups(data.group.faculty.id);
           },
           function(data, status, headers, config){
               $scope.gralert = {title: 'Внимание!', msg: data, cssClass: 'alert alert-error', visible: true};  
-          });       
+          });      */ 
    };
 
   // Загрузить все факультеты
