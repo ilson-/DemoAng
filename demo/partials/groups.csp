@@ -1,13 +1,35 @@
+<!-- ГРУППЫ -->
 <div class="row-fluid">
 	<div class="span1">
 	</div>
 	<div class="span10">
 		<!-- Свой компонент - таблица -->
-		<dmgrid data="grid"/>
+		<dmgrid data="grgrid"/>
 	</div>
 	<div class="span1">
 	</div>
 </div>
 <br>
 <!-- Инфо-сообщения -->
-<dmalert data="alert" span-right="1" span-middle="10" span-left="1"/>
+<dmalert data="gralert" span-right="1" span-middle="10" span-left="1"/>
+
+
+<!-- Если группа не выбрана(т.е. selected == udefined), то показывать сообщение и скрывать таблицу со студентами -->
+<div class="row-fluid" ng-hide="grgrid.selected" style="text-align: center;">
+	<i>Выберите группу для отображения студентов.</i>
+</div>
+
+<!-- СТУДЕНТЫ -->
+<div class="row-fluid" ng-show="grgrid.selected">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		<!-- Свой компонент - таблица -->
+		<dmgrid data="stgrid"/>
+	</div>
+	<div class="span1">
+	</div>
+</div>
+<br>
+<!-- Инфо-сообщения -->
+<dmalert data="stalert" span-right="1" span-middle="10" span-left="1"/>

@@ -9,7 +9,6 @@
 				</div>
 				<div class="accordion-body">
 					<div class="accordion-inner">
-						{{group|json}}
 						<form name="pageForm" ng-submit="submit()" style="margin: 0 0 10px 0;" >
 							<div class="control-group">
 						        <label class="control-label">Название*</label>
@@ -17,14 +16,13 @@
 						            <input class="span12" type="text" ng-model="group.name" required></input>
 						        </div>
 						    </div>
-							<div class="control-group">
+						    <div class="control-group">
 						    	<label class="control-label">Факультет*</label>
 						        <div class="controls">
 						        	<!-- Заполнение комбобокса данными из массива с факультетами -->
-					            	<!--
-					            	<select class="span12" ng-model="group.faculty.id" ng-options="faculty.id as faculty.name for faculty in faculties" ng-change="loadFacultyGroups(student.group.faculty.id)" required>
+					            	<select class="span12" ng-model="group.faculty.id" ng-options="faculty.id as faculty.name for faculty in faculties" required>
 					            		<option value=""></option>
-					            	</select>-->
+					            	</select>
 						        </div>
 						    </div>
 						    <div class="control-group">

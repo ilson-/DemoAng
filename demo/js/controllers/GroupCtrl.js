@@ -1,12 +1,12 @@
 'use strict';
-//ddcdddd
+//ddcd
 
 /*===========================================================================================
 Группа. Изменение/Добавление
 ===========================================================================================*/
 
-controllersModule.controller('GroupCtrl', function($scope, $routeParams, GroupSrvc/*, FacultySrvc*/){
-
+controllersModule.controller('GroupCtrl', function($scope, $routeParams, GroupSrvc, FacultySrvc){
+	
    // Инициализация данных
    $scope.init = function(){
       if ($routeParams.id){
@@ -19,18 +19,29 @@ controllersModule.controller('GroupCtrl', function($scope, $routeParams, GroupSr
           $scope.formBtnSubmitName = "Добавить";
       }
       
-      // Загрузить факультеты
       $scope.loadFaculties();
    };
 
-   // Загрузить  по ИД
+   // Загрузить группу по ИД
    $scope.loadGroup = function(id){
-    // TO DO 
+      GroupSrvc.get(id).then(
+          function(data){
+              $scope.group = data;
+          },
+          function(data, status, headers, config){
+              $scope.gralert = {title: 'Внимание!', msg: 'Группы не загружены. ' + data, cssClass: 'alert alert-error', visible: true};  
+          });  
    };
 
   // Загрузить все факультеты
   $scope.loadFaculties = function(){
-      // TO DO 
+      FacultySrvc.getAll(false).then(
+          function(data){
+              $scope.faculties = data.children;
+          },
+          function(data, status, headers, config){
+              $scope.gralert = {title: 'Внимание!', msg: 'Факультеты не загружены. ' + data, cssClass: 'alert alert-error', visible: true};  
+          });      
    };
 
    // Сохранить/создать (отправка формы). Передаем объект на сервер
@@ -45,7 +56,6 @@ controllersModule.controller('GroupCtrl', function($scope, $routeParams, GroupSr
               }
 
               $scope.alert = {title: 'Готово!', msg: msg, cssClass: 'alert alert-success', visible: true, closeTimeout: 1500};
-              // Сделать форму "чистой" (блокируется кнопка)
               $scope.pageForm.$setPristine();
           },
           function(data, status, headers, config){

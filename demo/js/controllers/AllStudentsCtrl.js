@@ -21,8 +21,8 @@ controllersModule.controller('AllStudentsCtrl', function($scope, $location, Stud
                       {name: 'Имя', property: 'fname'},
                       {name: 'Email', property: 'email'},
                       {name: 'Адрес', property: 'address'},
-                      {name: 'Группа', property: 'groupName'},
-                      {name: 'Факультет', property: 'facultyName'}],
+                      {name: 'Группа', property: 'group.name'},
+                      {name: 'Факультет', property: 'group.faculty.name'}],
             add: $scope.addStudent,
             edit: $scope.editStudent,
             remove: $scope.removeStudent
@@ -33,10 +33,9 @@ controllersModule.controller('AllStudentsCtrl', function($scope, $location, Stud
 
    // Загрузить всех студентов
    $scope.loadStudents = function(){
-    
         StudentSrvc.getAll().then(
             function(data){
-                $scope.grid.items = data;
+                $scope.grid.items = data.children;
             },
             function(data, status, headers, config){
                 $scope.gralert = {title: 'Внимание!', msg: 'Студенты не загружены. ' + data, cssClass: 'alert alert-error', visible: true};  
@@ -55,18 +54,15 @@ controllersModule.controller('AllStudentsCtrl', function($scope, $location, Stud
 
    // Удалить студента по ИД
    $scope.removeStudent = function(student){
-       
         StudentSrvc.remove(student.id).then(
             function(data){
               	$scope.alert = {title: 'Готово!', msg: 'Студент удален.', cssClass: 'alert alert-success', visible: true, closeTimeout: 1500};
             	  $scope.loadStudents();
             	  $scope.grid.selected = null;
-                
             },
             function(data, status, headers, config){
                 $scope.alert = {title: 'Внимание!', msg: data, cssClass: 'alert alert-error', visible: true};  
             });
-
    };
 
    $scope.init(); 

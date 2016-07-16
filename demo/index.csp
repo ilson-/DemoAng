@@ -11,9 +11,7 @@
 
     <script language="javascript">
         /* Имя приложения для работы с REST, глобальная переменная */
-        var DemoSetting = {};
-        DemoSetting.appNameAdmin = '#($GET(^Settings("Demo", "WebAppNameAdmin")))#';
-        DemoSetting.appNameUser = '#($GET(^Settings("Demo", "WebAppNameUser")))#';
+        var DemoSetting = {appName: '#($GET(^Settings("Demo", "WebAppName")))#'};
     </script>
   </head>
   <!-- Инициализация приложения, mainModule описан в app.js -->
@@ -53,14 +51,15 @@
     
     <script language="javascript"  src="js/controllers/AllStudentsCtrl.js"></script>
     <script language="javascript"  src="js/controllers/StudentCtrl.js"></script>
-    
-
     <script language="javascript"  src="js/controllers/AllGroupsCtrl.js"></script>
     <script language="javascript"  src="js/controllers/GroupCtrl.js"></script>
+    
+
 
     <script language="javascript"  src="js/services/RESTSrvc.js"></script>
     <script language="javascript"  src="js/services/StudentSrvc.js"></script>
-    <script language="javascript"  src="js/services/GroupsSrvc.js"></script>
+    <script language="javascript"  src="js/services/GroupSrvc.js"></script>
+    <script language="javascript"  src="js/services/FacultySrvc.js"></script>
     
     <script language="javascript"  src="js/directives/dmgrid.js"></script>
     <script language="javascript"  src="js/directives/dmalert.js"></script>

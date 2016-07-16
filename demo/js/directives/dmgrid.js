@@ -52,21 +52,21 @@ directivesModule.directive('dmgrid', function(){
         controller: function($scope){
             // Сортировка по выбранному стобцу, при изменении параметра сортирвки Angular сам "поймет" и заново выполнит вывод строк таблицы 
             $scope.sort = function(property, isUp){
-                $scope.predicate = property; 
-                $scope.isUp = !isUp;
-                // Смена иконки
-                $scope.sortIcon = 'icon-chevron-' + ($scope.isUp ? 'up':'down') + ' pull-right';        
-            };
+	        	$scope.predicate = property; 
+	        	$scope.isUp = !isUp;
+	        	// Смена иконки
+	        	$scope.sortIcon = 'icon-chevron-' + ($scope.isUp ? 'up':'down') + ' pull-right';		
+	        };
             
             // Выбор строки в таблице
             $scope.select = function(item){
                 if ($scope.data.selected){
-                    $scope.data.selected.rowCss = '';
-                    
-                    if ($scope.data.selected == item){
-                        $scope.data.selected = null;
-                        return
-                    }
+	                $scope.data.selected.rowCss = '';
+                	
+                	if ($scope.data.selected == item){
+                		$scope.data.selected = null;
+                		return
+                	}
                 }
                 
                 $scope.data.selected = item;
@@ -99,8 +99,7 @@ directivesModule.directive('dmgrid', function(){
             };
             
             // Выполнить начальную сортировку при инициализации контроллера
-            if ($scope.data && $scope.data.columns)
-                $scope.sort($scope.data.columns[0].property, true);
-        }
+           	$scope.sort($scope.data.columns[0].property, true);
+	   	}
     }
 });

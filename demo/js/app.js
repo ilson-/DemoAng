@@ -25,9 +25,10 @@ var mainModule        = angular.module('mainModule', ['servicesModule', 'control
 
 mainModule.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/api',         {templateUrl: 'partials/api.csp',      controller: ''});
-	$routeProvider.when('/students',    {templateUrl: 'partials/students.csp', controller: 'AllStudentsCtrl'});
-	$routeProvider.when('/groups',    {templateUrl: 'partials/groups.csp', controller: 'AllGroupsCtrl'});
-	$routeProvider.when('/group',    {templateUrl: 'partials/group.csp', controller: 'GroupCtrl'});
+	$routeProvider.when('/groups',      {templateUrl: 'partials/groups.csp',   controller: 'AllGroupsCtrl'});
+    $routeProvider.when('/group/:id',   {templateUrl: 'partials/group.csp',    controller: 'GroupCtrl'});
+    $routeProvider.when('/group',       {templateUrl: 'partials/group.csp',    controller: 'GroupCtrl'});
+    $routeProvider.when('/students',    {templateUrl: 'partials/students.csp', controller: 'AllStudentsCtrl'});
     $routeProvider.when('/student/:id', {templateUrl: 'partials/student.csp',  controller: 'StudentCtrl'});
     $routeProvider.when('/student/faculty/:fcId/group/:grId', {templateUrl: 'partials/student.csp',  controller: 'StudentCtrl'});
     
